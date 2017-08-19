@@ -14,11 +14,12 @@ describe("Plateau", function() {
     expect(plateau.matrix[5]).toBeUndefined();
   });
 
-  it("can add a Rover to the matrix", function() {
+  it("can add a Rover to a list of activeRovers", function() {
     plateau = new Plateau(3, 3).generate();
     rover = new Rover();
     plateau.addRover(rover)
     plateau.addRover(rover)
     expect(plateau.activeRovers).toEqual([rover, rover]);
-  }) 
+  })
+
 });
