@@ -23,8 +23,14 @@ describe("Plateau", function() {
   it("should register a rover on the matrix according to it's coordinates", function() {
     rover = new Rover();
     rover.coordinates = {x: 1, y: 2};
-    rover.heading = "N";
     plateau.registerRover(rover);
     expect(plateau.matrix[2][1]).toBe(rover)
+  });
+
+  it("should not register a rover with out-of-range coordinates", function() {
+    rover = new Rover();
+    rover.coordinates = {x: 4, y: 5 };
+    plateau.registerRover(rover);
+    expect(rover.isActive).toBe(false)
   });
 });
