@@ -2,8 +2,8 @@
   "name": "plateau-rover-squad",
   "version": "1.0.0",
   "main": "index.js",
-  "start": "node index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "node_modules/.bin/jasmine"
   },
   "repository": "git@github.com:gitmihalis/plateau-rover-squad.git",
