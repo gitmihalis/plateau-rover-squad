@@ -28,10 +28,14 @@ describe("Rover", function() {
   })
 
   it("should move in the direction of its heading", function() {
-    rover.heading = 'S';
     rover.coordinates = {x: 2, y:2};
-    rover.move();
-    expect(rover.coordinates).toBe({x:2, y:1});
+    rover.move("S");
+    expect(rover.coordinates).toEqual({x:2, y:1});
+  })
+
+  it("should not move with an invalid heading", function() {
+    rover.coordinates = {x: 2, y: 2};
+    expect(rover.move.bind(rover, "Down")).toThrowError(/Invalid instruction/);
   })
 
   
