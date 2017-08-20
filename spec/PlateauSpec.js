@@ -31,6 +31,15 @@ describe("Plateau", function() {
     rover = new Rover();
     rover.coordinates = {x: 4, y: 5 };
     plateau.registerRover(rover);
-    expect(rover.isActive).toBe(false)
+    expect(rover.isActive).toBe(false);
   });
+
+  it("should clear a rover from the matrix based on its coordinates", function() {
+    rover = new Rover();
+    rover.coordinates = {x: 4, y: 1};
+    plateau.registerRover(rover);
+    expect(plateau.matrix[1][4]).toBe(rover);
+    plateau.wipeRover(rover);
+    expect(plateau.matrix[1][4]).toBe(0);
+  })
 });

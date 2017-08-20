@@ -31,6 +31,8 @@ describe("Rover", function() {
     rover.coordinates = {x: 2, y:2};
     rover.move("S");
     expect(rover.coordinates).toEqual({x:2, y:1});
+    rover.move("W");
+    expect(rover.coordinates).toEqual({x:1, y:1});
   })
 
   it("should not move with an invalid heading", function() {
