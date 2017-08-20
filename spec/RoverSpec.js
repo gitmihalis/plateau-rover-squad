@@ -1,14 +1,21 @@
 describe("Rover", function() {
-  var Rover = require('../lib/Rover');
-  var rover;
+  var Rover = require('../lib/Rover')
+  var rover
 
   beforeEach(function() {
     rover = new Rover
-  });
+  })
 
   it("should initialize an instance of Rover", function() {
-    expect(rover).toEqual(jasmine.any(Rover));
-  });
+    expect(rover).toEqual(jasmine.any(Rover))
+    
+  })
+
+  it("should initialize with starting coordinates", function() {
+    let rover2 = new Rover(2,7)
+    expect(rover.coordinates).toEqual({x: 0, y: 0})
+    expect(rover2.coordinates).toEqual({x:2, y:7})
+  })
 
   it("should rotate to 0deg given LLRRRL", function() {
     rover.rotate('L').rotate('L').rotate('R');
