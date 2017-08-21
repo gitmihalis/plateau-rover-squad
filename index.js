@@ -51,13 +51,19 @@ parseInstructions.then( (parsed) => { // I for instructions
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
   
   for (let i = 0; i < instructions.length; i++) {
-    // if i is odd
-      // initialize a rover
-      // add rover to the plateau
-    // if i is odd,
+    // starting coordinates are first set of an alterating instruction list 
+    // `[3, 4, S]`
+    if (i % 2 === 0) {
+      let [x, y, heading] = instructions[i]
+
+      // initialize and add to the plateau
+      plateau.addRover(new Rover(x, y, heading))
+    } else {
+    // the instruction contains the movements for the rover to do `[MLRMMMRM]`
       // issue commands to rover 
       // run rover
+    }
   }
-
+  console.log(plateau.activeRovers)
 })
 .catch( (error) => console.error(error))
