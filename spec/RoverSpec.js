@@ -11,10 +11,11 @@ describe("Rover", function() {
     
   })
 
-  it("should initialize with starting coordinates", function() {
+  it("should initialize with starting coordinates and a heading", function() {
     let rover2 = new Rover(2,7)
     expect(rover.coordinates).toEqual({x: 0, y: 0})
     expect(rover2.coordinates).toEqual({x:2, y:7})
+    expect(rover2.heading).toBe(270)
   })
 
   it("should rotate to 0deg given LLRRRL", function() {
