@@ -37,14 +37,17 @@ describe("Rover", function() {
 
   it("should move in the direction of its heading", function() {
     rover.coordinates = {x: 2, y:2};
-    rover.move("S");
+    rover.heading = 180
+    rover.move();
     expect(rover.coordinates).toEqual({x:2, y:1});
-    rover.move("W");
+    rover.heading = 270
+    rover.move();
     expect(rover.coordinates).toEqual({x:1, y:1});
   })
 
   it("should not move with an invalid heading", function() {
     rover.coordinates = {x: 2, y: 2};
+    rover.heading = 80
     expect(rover.move.bind(rover, "Down")).toThrowError(/Invalid instruction/);
   })
 
