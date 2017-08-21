@@ -50,7 +50,14 @@ parseInstructions.then( (parsed) => { // I for instructions
   // initialize the plateau and generate the matrix
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
   
-  console.log(plateau)
+  for (let i = 0; i < instructions.length; i++) {
+    // if i is odd
+      // initialize a rover
+      // add rover to the plateau
+    // if i is odd,
+      // issue commands to rover 
+      // run rover
+  }
 
 })
 .catch( (error) => console.error(error))
