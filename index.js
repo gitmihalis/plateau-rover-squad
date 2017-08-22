@@ -42,31 +42,41 @@ const parseInstructions = new Promise( (resolve, reject) => {
 ////////////////////////////////////////////////////////////////////////////
 // Crete the plateau and dispatch the rovers AFTER we get our instructions
 //
-parseInstructions.then( (parsed) => { // I for instructions
-  const instructions = parsed
-  let plateauParams = instructions.splice(0,1)[0]
-    .map( param => parseInt(param))
+parseInstructions.then( (parsed) => {
+  // que up the rovers and their instructions
+  const que = []
 
+  const plateauParams = parsed.splice(0,1)[0]
+    .map( param => parseInt(param))
   //////////////////////////////////////////////////////
   // initialize the plateau and generate the matrix
   //
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
-  
-  ////////////////////////////////////////////////////////////////////////
-  // Iterate through the instructions and run the rovers over the plateau
-  //
-  for (let i = 0; i < instructions.length; i++) {
-    // starting coordinates are first set of an alterating instruction list `[3, 4, S]`
-    if (i % 2 === 0) {
-      let [x, y, heading] = instructions[i]
-      // initialize and add to the plateau
-      plateau.addRover(new Rover(x, y, heading))
-    } else {
-    // the instruction contains the movements for the rover to do `[MLRMMMRM]`
-      // issue commands to rover 
-      // run rover
-    }
+
+  for ( let instruction of parsed ) {
+    que.push(instruction)
   }
-  console.log(plateau.activeRovers)
+
+  console.log(que)
+
+  
+
+
+
+
+
+  // for (let i = 0; i < instructions.length; i++) {
+  //   // starting coordinates are first set of an alterating instruction list `[3, 4, S]`
+  //   if (i % 2 === 0) {
+  //     let [x, y, heading] = instructions[i]
+  //     // initialize and add to the plateau
+  //     plateau.addRover(new Rover(x, y, heading))
+
+  //   } else {
+  //     let instruction = instructions[i].toString()
+
+  //   }
+  // }
+  
 })
 .catch( (error) => console.error(error))
