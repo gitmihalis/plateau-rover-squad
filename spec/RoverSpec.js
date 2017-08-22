@@ -19,20 +19,19 @@ describe("Rover", function() {
   })
 
   it("should rotate to 0deg given LLRRRL", function() {
-    rover.rotate('L').rotate('L').rotate('R');
-    rover.rotate('R').rotate('R').rotate('L');
+    rover.rotate('L').rotate('L').rotate('R').rotate('R').rotate('R').rotate('L');
     expect(rover.heading).toBe(0)
   })
 
   it("should rotate to 90deg given RRRRR", function() {
     rover.rotate('R').rotate('R').rotate('R').rotate('R').rotate('R');
-    expect(rover.heading).toBe(0)
+    expect(rover.heading).toBe(90)
   })
 
   it("should rotate to 90deg given LLRRRLR", function() {
-    rover.rotate('L').rotate('L').rotate('R');
-    rover.rotate('R').rotate('R').rotate('L').rotate('R');
-    expect(rover.heading).toBe(0)
+    rover.rotate('L').rotate('L').rotate('R')
+      .rotate('R').rotate('R').rotate('L').rotate('R');
+    expect(rover.heading).toBe(90)
   })
 
   it("should move in the direction of its heading", function() {
@@ -49,6 +48,14 @@ describe("Rover", function() {
     rover.coordinates = {x: 2, y: 2};
     rover.heading = 80
     expect(rover.move.bind(rover, "Down")).toThrowError(/Invalid instruction/);
+  })
+
+  it("should move or rotate given a string of instruction", function() {
+    rover.coordinates = {x: 2, y: 2};
+    rover.heading = 0;
+    rover.instruction = "LMLMM";
+    rover.deploy()
+    expect(rover.coordinates).toEqual({x: 1, y: 0})
   })
 
   

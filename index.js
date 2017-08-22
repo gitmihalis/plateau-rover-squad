@@ -47,15 +47,18 @@ parseInstructions.then( (parsed) => { // I for instructions
   let plateauParams = instructions.splice(0,1)[0]
     .map( param => parseInt(param))
 
+  //////////////////////////////////////////////////////
   // initialize the plateau and generate the matrix
+  //
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
   
+  ////////////////////////////////////////////////////////////////////////
+  // Iterate through the instructions and run the rovers over the plateau
+  //
   for (let i = 0; i < instructions.length; i++) {
-    // starting coordinates are first set of an alterating instruction list 
-    // `[3, 4, S]`
+    // starting coordinates are first set of an alterating instruction list `[3, 4, S]`
     if (i % 2 === 0) {
       let [x, y, heading] = instructions[i]
-
       // initialize and add to the plateau
       plateau.addRover(new Rover(x, y, heading))
     } else {
