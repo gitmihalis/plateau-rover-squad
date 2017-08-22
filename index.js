@@ -1,11 +1,11 @@
+const _array = require('lodash/array');
 ////////////////////////////////////////////////////////////////////
 // Rover Dispatcher ... 
 // Receives instructions from a text file and moves rovers through a
 // matrix , representing a plateau that is being scanned for lifeforms!
 //
 // TODO
-// [ ] initiate a rover with an instruction
-// [ ] Create a helper to alternate between generating a rover and moving that rover
+// [x] initiate a rover with an instruction
 
 // new Plateau takes ( rows, columns ) as args 
 const Plateau = require('./lib/Plateau')
@@ -43,40 +43,31 @@ const parseInstructions = new Promise( (resolve, reject) => {
 // Crete the plateau and dispatch the rovers AFTER we get our instructions
 //
 parseInstructions.then( (parsed) => {
-  // que up the rovers and their instructions
-  const que = []
 
+  // Remove and apply the first instruction for the Plateau
   const plateauParams = parsed.splice(0,1)[0]
     .map( param => parseInt(param))
+
   //////////////////////////////////////////////////////
   // initialize the plateau and generate the matrix
-  //
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
 
-  for ( let instruction of parsed ) {
-    que.push(instruction)
+  // chunk the instrucitions so that they can be delivered to the rovers 
+  // and executed...
+  let instructions = _array.chunk(parsed, 2)
+
+  for (let i = 0; i < instructions.length; i++) {
+    // instructions[i] //=> [ [ '1', '2', 'N' ], [ 'LMLMLMLMM' ] ]
+    // Initialize the rover with the start coordiantes
+    // Pass the movement instruction 
+
+    let [x, y, heading] = instructions[i][0] 
+    const rover = new Rover(parseInt(x), parseInt(y), heading)
+
+    rover.instruction = instructions[i][1].toString()
+    console.log("init: ", rover)
+
+    rover.deploy()
+    console.log("deployed: ",rover)
   }
-
-  console.log(que)
-
-  
-
-
-
-
-
-  // for (let i = 0; i < instructions.length; i++) {
-  //   // starting coordinates are first set of an alterating instruction list `[3, 4, S]`
-  //   if (i % 2 === 0) {
-  //     let [x, y, heading] = instructions[i]
-  //     // initialize and add to the plateau
-  //     plateau.addRover(new Rover(x, y, heading))
-
-  //   } else {
-  //     let instruction = instructions[i].toString()
-
-  //   }
-  // }
-  
-})
-.catch( (error) => console.error(error))
+}).catch( (error) => console.error(error))
