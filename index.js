@@ -1,4 +1,4 @@
-const _array = require('lodash/array');
+const _ = require('lodash/array');
 ////////////////////////////////////////////////////////////////////
 //======= Rover Dispatcher ========//
 // Receives instructions from a text file and moves rovers through a
@@ -52,7 +52,7 @@ parseInstructions.then( (parsed) => {
 
   // Chunk the instrucitions so that they can be sent to the rovers 
   // and executed on...
-  let instructions = _array.chunk(parsed, 2)
+  let instructions = _.chunk(parsed, 2)
 
   for (let i = 0; i < instructions.length; i++) {
     // instructions[i] //=> [ [ '1', '2', 'N' ], [ 'LMLMLMLMM' ] ]
@@ -71,6 +71,8 @@ parseInstructions.then( (parsed) => {
 
   // Now we display the final coordinates of each rover in the plateau
   plateau.activeRovers.forEach( r => console.log(r.broadcastCoordinates()))
-  console.log(plateau.matrix)
+
+  // Reverse the matrix so it can be displayed right side up, with x 1, x 1 @ bottom left corner
+  console.log(_.reverse(plateau.matrix))
 })
 .catch( (error) => console.error(error))
