@@ -71,5 +71,6 @@ parseInstructions.then( (parsed) => {
 
   // Now we display the final coordinates of each rover in the plateau
   plateau.activeRovers.forEach( r => console.log(r.broadcastCoordinates()))
+  console.log(plateau.matrix)
 })
 .catch( (error) => console.error(error))
