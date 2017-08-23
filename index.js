@@ -1,25 +1,19 @@
-const _ = require('lodash/array');
+
 ////////////////////////////////////////////////////////////////////
 //======= Rover Dispatcher ========//
 // Receives instructions from a text file and moves rovers through a
 // matrix , representing a plateau that is being scanned for lifeforms!
 
-// new Plateau takes ( rows, columns ) as args 
-const Plateau = require('./lib/Plateau')
-
-// new Rover takes (x, y) as args
-const Rover = require('./lib/Rover')
-
-// Establish instructions from text file
-const fs = require('fs')
-const readline = require('readline')
+const _ = require('lodash/array');
+const Plateau = require('./lib/Plateau') // takes ( rows, columns ) as args 
+const Rover = require('./lib/Rover') // new Rover takes (x, y) as args
+const fs = require('fs') // to read instuctions from text file
+const readline = require('readline') // to read instuctions from text file
 const file = process.argv[2]
-
 // Create a readable stream of our input file
 const rl = readline.createInterface({
   input: fs.createReadStream(file)
 })
-
 
 ////////////////////////////////////////////////////////
 // Parse the sets of commands from our readable Stream
