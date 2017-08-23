@@ -1,11 +1,8 @@
 const _array = require('lodash/array');
 ////////////////////////////////////////////////////////////////////
-// Rover Dispatcher ... 
+//======= Rover Dispatcher ========//
 // Receives instructions from a text file and moves rovers through a
 // matrix , representing a plateau that is being scanned for lifeforms!
-//
-// TODO
-// [x] initiate a rover with an instruction
 
 // new Plateau takes ( rows, columns ) as args 
 const Plateau = require('./lib/Plateau')
@@ -28,6 +25,7 @@ const rl = readline.createInterface({
 // Parse the sets of commands from our readable Stream
 //
 const parseInstructions = new Promise( (resolve, reject) => {
+
   let parsed = []
   rl.on('line', (line) => parsed.push(line))
   rl.on('close', () => {
@@ -36,8 +34,8 @@ const parseInstructions = new Promise( (resolve, reject) => {
     })
     resolve(parsed)
   })
-})
 
+})
 
 ////////////////////////////////////////////////////////////////////////////
 // Crete the plateau and dispatch the rovers AFTER we get our instructions
@@ -52,28 +50,26 @@ parseInstructions.then( (parsed) => {
   // initialize the plateau and generate the matrix
   const plateau = new Plateau(plateauParams[1], plateauParams[0]).generate()
 
-  // chunk the instrucitions so that they can be delivered to the rovers 
-  // and executed...
+  // Chunk the instrucitions so that they can be sent to the rovers 
+  // and executed on...
   let instructions = _array.chunk(parsed, 2)
 
   for (let i = 0; i < instructions.length; i++) {
     // instructions[i] //=> [ [ '1', '2', 'N' ], [ 'LMLMLMLMM' ] ]
-    // Initialize the rover with the start coordiantes
-    // Pass the movement instruction 
-
+    // Initialize the rover with the start coordiantes and then
     let [x, y, heading] = instructions[i][0] 
     const rover = new Rover(parseInt(x), parseInt(y), heading)
-
+    // send the movement instruction 
     rover.instruction = instructions[i][1].toString()
 
-    rover.deploy()
+    rover.deploy(plateau)
 
     // For now, we can push the rover to the plateau once it's been deployed
+    // We call on them outside the loop to broadcast their final coordinates in order
     plateau.activeRovers.push(rover)
   }
 
   // Now we display the final coordinates of each rover in the plateau
   plateau.activeRovers.forEach( r => console.log(r.broadcastCoordinates()))
-
 })
 .catch( (error) => console.error(error))

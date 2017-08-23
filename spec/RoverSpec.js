@@ -1,14 +1,17 @@
 describe("Rover", function() {
   var Rover = require('../lib/Rover')
+  var Plateau = require('../lib/Plateau')
   var rover
+  var plateau
+
 
   beforeEach(function() {
     rover = new Rover
+    plateau = new Plateau(8, 10).generate()
   })
 
   it("should initialize an instance of Rover", function() {
     expect(rover).toEqual(jasmine.any(Rover))
-    
   })
 
   it("should initialize with starting coordinates and a heading", function() {
@@ -62,16 +65,23 @@ describe("Rover", function() {
     rover.coordinates = {x: 2, y: 2}
     rover.heading = 0
     rover.instruction = "LMLMM"
-    rover.deploy()
+    rover.deploy(plateau)
 
     expect(rover.coordinates).toEqual({x: 1, y: 0})
+  })
+
+  it("should break if it's deployed outside the plateau", function() {
+    rover.coordinates = {x: 1, y: 1}
+    rover.heading = 270
+    rover.instruction = "MMMM"
+    expect(rover.isActive).toEqual(false)
   })
 
   it("should log it's final coordiantes after it is deployed", function() {
     rover.coordinates = {x: 2, y: 2}
     rover.heading = 0
     rover.instruction = "LMLMM"
-    rover.deploy()
+    rover.deploy(plateau)
     expect(rover.broadcastCoordinates()).toEqual("1 0 S")
   })
 
