@@ -67,6 +67,14 @@ describe("Rover", function() {
     expect(rover.coordinates).toEqual({x: 1, y: 0})
   })
 
+  it("should log it's final coordiantes after it is deployed", function() {
+    rover.coordinates = {x: 2, y: 2}
+    rover.heading = 0
+    rover.instruction = "LMLMM"
+    rover.deploy()
+    expect(rover.broadcastCoordinates()).toEqual("1 0 S")
+  })
+
   
 
 })
