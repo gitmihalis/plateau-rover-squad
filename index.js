@@ -65,9 +65,15 @@ parseInstructions.then( (parsed) => {
     const rover = new Rover(parseInt(x), parseInt(y), heading)
 
     rover.instruction = instructions[i][1].toString()
-    console.log("init: ", rover)
 
     rover.deploy()
-    console.log("deployed: ",rover)
+
+    // For now, we can push the rover to the plateau once it's been deployed
+    plateau.activeRovers.push(rover)
   }
-}).catch( (error) => console.error(error))
+
+  // Now we display the final coordinates of each rover in the plateau
+  plateau.activeRovers.forEach( r => console.log(r.broadcastCoordinates()))
+
+})
+.catch( (error) => console.error(error))
