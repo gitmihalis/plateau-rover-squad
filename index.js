@@ -72,7 +72,13 @@ parseInstructions.then( (parsed) => {
   // Now we display the final coordinates of each rover in the plateau
   plateau.activeRovers.forEach( r => console.log(r.broadcastCoordinates()))
 
+  // Uncommonent below to view the rovers in the matrix
+
+  // console.log(`
+  // - - - - - - - - 
+  // x = Rover
+  // 0 = empty 
+  // `)
   // Reverse the matrix so it can be displayed right side up, with x 1, x 1 @ bottom left corner
-  console.log(_.reverse(plateau.matrix))
-})
-.catch( (error) => console.error(error))
+  // console.log(_.reverse(plateau.matrix))
+}).catch( (error) => console.error(error))
