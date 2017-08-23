@@ -58,16 +58,16 @@ describe("Rover", function() {
     rover.coordinates = {x: 2, y: 2}
     rover.heading = 80
 
-    expect(rover.move.bind(rover, "Down")).toThrowError(/Invalid instruction/)
+    expect(rover.move.bind(rover, "Down")).toThrowError(/Unrecognized/)
   })
 
   it("should move or rotate given a string of instruction", function() {
     rover.coordinates = {x: 2, y: 2}
     rover.heading = 0
-    rover.instruction = "LMLMM"
+    rover.instruction = "LMRMM"
     rover.deploy(plateau)
 
-    expect(rover.coordinates).toEqual({x: 1, y: 0})
+    expect(rover.coordinates).toEqual({x: 1, y: 4})
   })
 
   it("should break if it's deployed outside the plateau", function() {
@@ -78,11 +78,11 @@ describe("Rover", function() {
   })
 
   it("should log it's final coordiantes after it is deployed", function() {
-    rover.coordinates = {x: 2, y: 2}
+    rover.coordinates = {x: 5, y: 5}
     rover.heading = 0
     rover.instruction = "LMLMM"
     rover.deploy(plateau)
-    expect(rover.broadcastCoordinates()).toEqual("1 0 S")
+    expect(rover.broadcastCoordinates()).toEqual("4 3 S")
   })
 
   
